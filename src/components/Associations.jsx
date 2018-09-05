@@ -35,7 +35,17 @@ export default class Associations extends Component {
   }
 
   handleSelect ( e ) {
-    const selectedOption = e.target.id.split(' ', 2);
+    let selectedOption = e.target.id.split(',');
+    let category = selectedOption[0];
+    let option = selectedOption[1];
+
+    let categoryAltered = Object.assign( {}, this.state[category] );
+    categoryAltered[option] = !categoryAltered[option];
+
+    this.setState({
+      [category]: categoryAltered
+    });
+
   }
 
   render () {
