@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import getWordsAtEndpoint from '../../helpers.js';
+
 export default class WordLookup extends Component {
   constructor () {
     super();
@@ -22,6 +24,18 @@ export default class WordLookup extends Component {
     e.preventDefault();
     console.log( this.state.textInput );
   }
+
+  handleLookup ( e ) {
+    console.log( getWordsAtEndpoint );
+    getWordsAtEndpoint( 'https://api.datamuse.com/words?ml=test' )
+      .then( test => {
+        console.log( test );
+        return test;
+      })
+      .catch( error => {
+        console.error( error );
+      });
+  } 
   
   render() {
     return (
@@ -33,6 +47,11 @@ export default class WordLookup extends Component {
           onChange={ this.handleInput }
           onInput={ this.handleSubmit }>
         </input>
+        <button 
+          type="submit"
+          onClick={ this.handleLookup }>
+
+        </button>
         
         <hr className="underline" />
         <hr />
