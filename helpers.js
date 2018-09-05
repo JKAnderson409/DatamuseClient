@@ -6,29 +6,35 @@ const datamuse = {
   postfix: '&max=1000&md=df&v=enwiki',
   spelledLike: 'sp=',
 
-  meaning: {
-    'definition': 'ml=',
-    'synonym': 'rel_syn=',
-    'antonym': 'rel_ant=',
-    'comprises': 'rel_com=',
-    'kind of': 'rel_spc=',
-    'more general': 'rel_gen='
-  },
-  usage: {
-    'part': 'rel_par=',
-    'modified by': 'rel_jja=',
-    'modifies': 'rel_jjb=',
-    'triggers': 'rel_trg=',
-    'follower': 'rel_bga=',
-    'predecessor': 'rel_bgb='
-  },
-  sound: {
-    'sounds like': 'sl=',
-    'assonant rhyme': 'rel_rhy=',
-    'consonant rhyme': 'rel_cns=',
-    'approximate rhyme': 'rel_nry=',
-    'homophone': 'rel_hom='
+  'definition': 'ml=',
+  'synonym': 'rel_syn=',
+  'antonym': 'rel_ant=',
+  'comprises': 'rel_com=',
+  'kind of': 'rel_spc=',
+  'more general': 'rel_gen=',
+
+  'part': 'rel_par=',
+  'modified by': 'rel_jja=',
+  'modifies': 'rel_jjb=',
+  'triggers': 'rel_trg=',
+  'follower': 'rel_bga=',
+  'predecessor': 'rel_bgb=',
+
+  'sounds like': 'sl=',
+  'assonant rhyme': 'rel_rhy=',
+  'consonant rhyme': 'rel_cns=',
+  'approximate rhyme': 'rel_nry=',
+  'homophone': 'rel_hom='
+
+};
+
+const lookupWords = ( selectedOptions ) => {
+  const endpointsRequested = [];
+  for ( let option of selectedOptions ) {
+    console.log( option );
+    endpointsRequested.push(datamuse[option]);
   }
+  console.log( endpointsRequested );
 };
 
 const getWordsAtEndpoint = async ( url ) => {
@@ -56,4 +62,4 @@ const datamuseLookup = async ( associations, userInput ) => {
     .catch( error => { console.error( error ); });
 };
 
-export default getWordsAtEndpoint;
+export {getWordsAtEndpoint, lookupWords};

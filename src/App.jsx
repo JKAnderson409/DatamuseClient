@@ -60,7 +60,9 @@ export default class App extends Component {
             associations={ this.state }
             handleSelect={ this.handleSelect }
           />
-          <WordFinder />
+          <WordFinder 
+            associations={ this.state }
+          />
           <div className="box footer">
             Footer
           </div>

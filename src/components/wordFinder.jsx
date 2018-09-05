@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import getWordsAtEndpoint from '../../helpers.js';
+import {lookupWords} from '../../helpers.js';
 
 export default class WordLookup extends Component {
   constructor () {
@@ -11,6 +11,7 @@ export default class WordLookup extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLookup = this.handleLookup.bind(this);
   }
 
   handleInput ( e ) {
@@ -26,15 +27,16 @@ export default class WordLookup extends Component {
   }
 
   handleLookup ( e ) {
-    console.log( getWordsAtEndpoint );
-    getWordsAtEndpoint( 'https://api.datamuse.com/words?ml=test' )
-      .then( test => {
-        console.log( test );
-        return test;
-      })
-      .catch( error => {
-        console.error( error );
-      });
+    const selectedOptions = [];
+    for ( let category in this.props.associations ) {
+      for ( let option in this.props.associations[category] ) {
+        let optionValue = this.props.associations[category][option];
+        if ( optionValue ) {
+          selectedOptions.push( option );
+        }
+      }
+    }
+    lookupWords( selectedOptions );
   } 
   
   render() {
@@ -49,8 +51,12 @@ export default class WordLookup extends Component {
         </input>
         <button 
           type="submit"
-          onClick={ this.handleLookup }>
-
+          onClick={ this.handleLookup }
+          style={{
+            'minHeight': '30px'
+          }}
+        >
+          Search
         </button>
         
         <hr className="underline" />
