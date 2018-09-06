@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const datamuse = {
+
   words: 'https://api.datamuse.com/words?',
   datamuseSuggest: 'https://api.datamuse.com/sug?s=',
   postfix: '&max=1000&md=df&v=enwiki',
