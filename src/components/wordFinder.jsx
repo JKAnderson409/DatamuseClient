@@ -65,6 +65,7 @@ export default class WordLookup extends PureComponent {
 
         <hr className="underline" />
         <hr />
+				<br />
 				<WordList 
 					words={ this.state.words }
 				/>

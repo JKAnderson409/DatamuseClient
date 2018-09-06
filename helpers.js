@@ -44,7 +44,7 @@ const lookupWords = async ( selectedOptions, textInput = 'smith' ) => {
 };
 
 const getWordsAtEndpoint = ( endpoint, wordToLookUp ) => {
-  return axios.get( datamuse.words + endpoint + wordToLookUp )
+  return axios.get( datamuse.words + endpoint + wordToLookUp + datamuse.postfix )
     .then( res => ( res.data ))
     .catch( error => { console.error( error ); });
 };
