@@ -7,7 +7,8 @@ export default ( props ) => {
       { Object.keys( props.optionList ).map(( option, i, optionListKeys ) => (
         <li
           key={ i }
-          className={ ( props.optionList[option].id ) ? "selected" : null }
+          id={ [ props.id, option ] }
+          className={ ( props.optionList[option] ) ? "selected" : null }
           onClick={ props.handleSelect }>
           { option }
         </li>
