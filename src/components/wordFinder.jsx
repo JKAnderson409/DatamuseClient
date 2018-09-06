@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-import {lookupWords} from '../../helpers.js';
+import WordList from './WordList.jsx';
+import { lookupWords } from '../../helpers.js';
 
-export default class WordLookup extends Component {
+export default class WordLookup extends PureComponent {
   constructor () {
     super();
     this.state = {
-      textInput: ''
+      textInput: '',
+      words: []
     };
 
     this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLookup = this.handleLookup.bind(this);
   }
 
@@ -20,14 +21,9 @@ export default class WordLookup extends Component {
       textInput: e.target.value
     });
   }
-
-  handleSubmit ( e ) {
-    e.preventDefault();
-    console.log( this.state.textInput );
-  }
-
-  handleLookup ( e ) {
-    const selectedOptions = [];
+	
+	async handleLookup ( e ) {
+		const selectedOptions = [];
     for ( let category in this.props.associations ) {
       for ( let option in this.props.associations[category] ) {
         let optionValue = this.props.associations[category][option];
@@ -35,19 +31,27 @@ export default class WordLookup extends Component {
           selectedOptions.push( option );
         }
       }
-    }
-    lookupWords( selectedOptions );
-  } 
-  
+		}
+		
+		await lookupWords( selectedOptions, this.state.textInput )
+			.then( newWords => {
+				this.setState({
+					words: newWords
+				});
+			});
+	}
+
   render() {
     return (
       <div className="box word-finder">
         <hr />
         <input
           type="text"
-          
           onChange={ this.handleInput }
-          onInput={ this.handleSubmit }>
+					onInput={ this.handleSubmit }
+					autoFocus
+					placeholder={ 'type in a word and select search criteria...' }
+				>
         </input>
         <button 
           type="submit"
@@ -58,10 +62,12 @@ export default class WordLookup extends Component {
         >
           Search
         </button>
-        
+
         <hr className="underline" />
         <hr />
-        More content than we had before so this column is now quite tall.
+				<WordList 
+					words={ this.state.words }
+				/>
       </div>
     );
   }

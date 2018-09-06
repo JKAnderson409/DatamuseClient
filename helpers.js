@@ -28,38 +28,28 @@ const datamuse = {
 
 };
 
-const lookupWords = ( selectedOptions ) => {
+const lookupWords = async ( selectedOptions, textInput = 'smith' ) => {
   const endpointsRequested = [];
   for ( let option of selectedOptions ) {
-    console.log( option );
-    endpointsRequested.push(datamuse[option]);
+    endpointsRequested.push(
+      getWordsAtEndpoint( datamuse[option], textInput)
+    );
   }
-  console.log( endpointsRequested );
-};
 
-const getWordsAtEndpoint = async ( url ) => {
-  return await axios.get( url + datamuse.postfix )
-    .then( res => {
-      console.log(res.data);
-      return res.data; 
-    })
-    .catch( error => { console.error( error ); });
-};
-
-const datamuseLookup = async ( associations, userInput ) => {
-  const wordGetters = [];
-  associations.forEach( association => {
-    wordGetters.push( getWordsAtEndpoint(
-      datamuse.datamuseWords + datamuse.endpoints[association] + userInput
-    ));
-  });
-
-  await axios.all( wordGetters )
-    .then( axios.spread(( ...wordDataLists) => {
-      console.log(wordDataLists);
-      return wordDataLists;
+	return await axios.all( endpointsRequested )
+    .then( axios.spread( ( ...wordData ) => {
+      return wordData.flat();
     }))
     .catch( error => { console.error( error ); });
 };
 
-export {getWordsAtEndpoint, lookupWords};
+const getWordsAtEndpoint = ( endpoint, wordToLookUp ) => {
+  return axios.get( datamuse.words + endpoint + wordToLookUp )
+    .then( res => ( res.data ))
+    .catch( error => { console.error( error ); });
+};
+
+export {
+  getWordsAtEndpoint, 
+  lookupWords
+};
