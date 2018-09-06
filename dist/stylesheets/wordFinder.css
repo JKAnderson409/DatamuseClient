@@ -1,5 +1,6 @@
 .word-finder {
   grid-area: content;
+  min-height: 500px;
   padding: 0 1em 0 1em;
   background-color: #fafafa;
 }

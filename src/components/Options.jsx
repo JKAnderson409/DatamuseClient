@@ -44,10 +44,12 @@ export default class Options extends Component {
         {( this.state.showAssociations )
           ?
             <Associations
+              associations={ this.props.associations }
               showMeaning={ this.state.showMeaning }
               showUsage={ this.state.showUsage }
               showSound={ this.state.showSound }
               toggleView={ this.toggleView }
+              handleSelect={ this.props.handleSelect }
             />
           : null 
         }

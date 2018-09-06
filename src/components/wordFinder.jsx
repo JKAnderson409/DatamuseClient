@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class WordLookup extends Component {
+import WordList from './WordList.jsx';
+import { lookupWords } from '../../helpers.js';
+
+export default class WordLookup extends PureComponent {
   constructor () {
     super();
     this.state = {
-      textInput: ''
+      textInput: '',
+      words: []
     };
 
     this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLookup = this.handleLookup.bind(this);
   }
 
   handleInput ( e ) {
@@ -17,26 +21,54 @@ export default class WordLookup extends Component {
       textInput: e.target.value
     });
   }
+	
+	async handleLookup ( e ) {
+		const selectedOptions = [];
+    for ( let category in this.props.associations ) {
+      for ( let option in this.props.associations[category] ) {
+        let optionValue = this.props.associations[category][option];
+        if ( optionValue ) {
+          selectedOptions.push( option );
+        }
+      }
+		}
+		
+		await lookupWords( selectedOptions, this.state.textInput )
+			.then( newWords => {
+				this.setState({
+					words: newWords
+				});
+			});
+	}
 
-  handleSubmit ( e ) {
-    e.preventDefault();
-    console.log( this.state.textInput );
-  }
-  
   render() {
     return (
       <div className="box word-finder">
         <hr />
         <input
           type="text"
-          
           onChange={ this.handleInput }
-          onInput={ this.handleSubmit }>
+					onInput={ this.handleSubmit }
+					autoFocus
+					placeholder={ 'type in a word and select search criteria...' }
+				>
         </input>
-        
+        <button 
+          type="submit"
+          onClick={ this.handleLookup }
+          style={{
+            'minHeight': '30px'
+          }}
+        >
+          Search
+        </button>
+
         <hr className="underline" />
         <hr />
-        More content than we had before so this column is now quite tall.
+				<br />
+				<WordList 
+					words={ this.state.words }
+				/>
       </div>
     );
   }
