@@ -7,7 +7,8 @@ export default class WordLookup extends PureComponent {
   constructor () {
     super();
     this.state = {
-      textInput: '',
+			textInput: '',
+			lastSearchInput: '',
       words: []
     };
 
@@ -19,7 +20,8 @@ export default class WordLookup extends PureComponent {
     e.preventDefault();
     this.setState({
       textInput: e.target.value
-    });
+		});
+
   }
 	
 	async handleLookup ( e ) {
@@ -45,29 +47,29 @@ export default class WordLookup extends PureComponent {
     return (
       <div className="box word-finder">
         <hr />
-        <input
-          type="text"
-          onChange={ this.handleInput }
+				<input
+					type="text"
+					autoFocus="autofocus"
+					onChange={ this.handleInput }
 					onInput={ this.handleSubmit }
-					autoFocus
 					placeholder={ 'type in a word and select search criteria...' }
-				>
-        </input>
-        <button 
-          type="submit"
-          onClick={ this.handleLookup }
-          style={{
-            'minHeight': '30px'
-          }}
-        >
-          Search
-        </button>
+				/>
 
+				<button 
+					type="submit"
+					onClick={ this.handleLookup }
+					style={{
+						'minHeight': '30px'
+					}}
+				>
+					Search
+				</button>
+				
         <hr className="underline" />
         <hr />
 				<br />
 				<WordList 
-					words={ this.state.words }
+					allWordData={ this.state.words }
 				/>
       </div>
     );
