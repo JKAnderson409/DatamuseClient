@@ -16,7 +16,7 @@ export default class Word extends Component {
 		});
 	}
 
-	render() {
+	render () {
 		const wordData = this.props.wordData;
 		return (
 			<span
