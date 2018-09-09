@@ -4,15 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node --inspect ./server/index.js",
     "dev": "webpack-dev-server --mode development --progress --open 'Firefox Developer Edition'",
-    "build": "webpack --mode production",
-    "react-build": "react-scripts build"
+    "devpack": "webpack-dev-server --mode development --progress",
+    "build": "webpack --mode production"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.0",
@@ -30,7 +32,14 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "aws-sdk": "^2.311.0",
     "axios": "^0.18.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "express": "^4.16.3",
+    "pug": "^2.0.3",
     "react-addons-css-transition-group": "^15.6.2"
   }
 }
