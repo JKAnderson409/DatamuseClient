@@ -24,7 +24,7 @@ export default class WordLookup extends PureComponent {
 
   }
 	
-	async handleLookup ( e ) {
+	async handleLookup () {
 		const selectedOptions = [];
     for ( let category in this.props.associations ) {
       for ( let option in this.props.associations[category] ) {
