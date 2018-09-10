@@ -10,7 +10,7 @@ export default class Word extends Component {
 		this.handleShowDefinitions = this.handleShowDefinitions.bind(this);
 	}
 
-	handleShowDefinitions ( e ) {
+	handleShowDefinitions () {
 		this.setState({
 			showDefinitions: !this.state.showDefinitions
 		});
