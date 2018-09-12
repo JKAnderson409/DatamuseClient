@@ -1,5 +1,5 @@
-@import 'app.css';
-@import 'navbar.css';
-@import 'sidebar.css';
-@import 'wordFinder.css';
-@import 'footer.css';
+@import './app.css';
+@import './navbar.css';
+@import './sidebar.css';
+@import './wordFinder.css';
+@import './footer.css';

@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+
 import css from '../dist/stylesheets/index.css';
 
 import React from 'react';

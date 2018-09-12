@@ -39,7 +39,13 @@ const lookupWords = async ( selectedOptions, textInput = 'smith' ) => {
 
 	return await axios.all( endpointsRequested )
     .then( axios.spread( ( ...wordData ) => {
-      return wordData.flat();
+      let flatWordData = [];
+      for ( let arr of wordData ) {
+        for ( let word of arr ) {
+          flatWordData.push(word);
+        }
+      }
+      return flatWordData;
     }))
     .catch( error => { console.error( error ); });
 };
