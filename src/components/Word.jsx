@@ -17,7 +17,7 @@ export default class Word extends Component {
 	}
 
 	render () {
-		const wordData = this.props.wordData;
+		const wordData = this.props.wordData || ['loading'];
 		return (
 			<span
 				onClick={ this.handleShowDefinitions }
